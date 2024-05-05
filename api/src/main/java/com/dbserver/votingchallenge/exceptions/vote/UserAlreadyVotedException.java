@@ -1,7 +1,9 @@
 package com.dbserver.votingchallenge.exceptions.vote;
 
-public class UserAlreadyVotedException extends RuntimeException {
+import com.dbserver.votingchallenge.exceptions.general.ConflictException;
+
+public class UserAlreadyVotedException extends ConflictException {
     public UserAlreadyVotedException() {
-        super("User already voted");
+        super("Este usuário já votou nesta pauta");
     }
 }

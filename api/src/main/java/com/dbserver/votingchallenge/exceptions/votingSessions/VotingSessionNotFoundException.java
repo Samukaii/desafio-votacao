@@ -1,7 +1,9 @@
 package com.dbserver.votingchallenge.exceptions.votingSessions;
 
-public class VotingSessionNotFoundException extends RuntimeException {
+import com.dbserver.votingchallenge.exceptions.general.NotFoundException;
+
+public class VotingSessionNotFoundException extends NotFoundException {
     public VotingSessionNotFoundException() {
-        super("Voting session not found");
+        super("Sessão de votação não encontrada");
     }
 }

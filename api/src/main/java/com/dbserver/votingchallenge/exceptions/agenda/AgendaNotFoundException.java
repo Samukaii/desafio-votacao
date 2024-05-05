@@ -1,7 +1,9 @@
 package com.dbserver.votingchallenge.exceptions.agenda;
 
-public class AgendaNotFoundException extends RuntimeException {
+import com.dbserver.votingchallenge.exceptions.general.NotFoundException;
+
+public class AgendaNotFoundException extends NotFoundException {
     public AgendaNotFoundException() {
-        super("Agenda not found");
+        super("Pauta não encontrada");
     }
 }

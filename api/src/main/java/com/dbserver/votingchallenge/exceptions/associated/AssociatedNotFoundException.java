@@ -1,7 +1,9 @@
 package com.dbserver.votingchallenge.exceptions.associated;
 
-public class AssociatedNotFoundException extends RuntimeException {
+import com.dbserver.votingchallenge.exceptions.general.NotFoundException;
+
+public class AssociatedNotFoundException extends NotFoundException {
     public AssociatedNotFoundException() {
-        super("Associated not found");
+        super("Associado não encontrado");
     }
 }

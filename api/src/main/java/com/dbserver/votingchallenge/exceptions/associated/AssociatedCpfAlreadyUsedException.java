@@ -1,7 +1,9 @@
 package com.dbserver.votingchallenge.exceptions.associated;
 
-public class AssociatedCpfAlreadyUsedException extends RuntimeException {
+import com.dbserver.votingchallenge.exceptions.general.ConflictException;
+
+public class AssociatedCpfAlreadyUsedException extends ConflictException {
     public AssociatedCpfAlreadyUsedException() {
-        super("Associated cpf already used");
+        super("Este cpf já foi utilizado");
     }
 }
