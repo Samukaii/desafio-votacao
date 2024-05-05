@@ -1,4 +1,4 @@
-package com.dbserver.votingchallenge.exceptions.votingSessions;
+package com.dbserver.votingchallenge.exceptions.agenda;
 
 import com.dbserver.votingchallenge.exceptions.general.ConflictException;
 

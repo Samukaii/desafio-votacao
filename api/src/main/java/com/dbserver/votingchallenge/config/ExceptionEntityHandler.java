@@ -2,13 +2,8 @@ package com.dbserver.votingchallenge.config;
 
 import com.dbserver.votingchallenge.dtos.general.ErrorResponseDTO;
 import com.dbserver.votingchallenge.dtos.general.RequestBodyErrorResponseDTO;
-import com.dbserver.votingchallenge.exceptions.agenda.AgendaNotFoundException;
-import com.dbserver.votingchallenge.exceptions.associated.AssociatedCpfAlreadyUsedException;
-import com.dbserver.votingchallenge.exceptions.associated.AssociatedNotFoundException;
 import com.dbserver.votingchallenge.exceptions.general.ConflictException;
 import com.dbserver.votingchallenge.exceptions.general.NotFoundException;
-import com.dbserver.votingchallenge.exceptions.votingSessions.AgendaAlreadyOpenVotingSessionException;
-import com.dbserver.votingchallenge.exceptions.votingSessions.VotingSessionNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -29,6 +24,6 @@ public class ExceptionEntityHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<RequestBodyErrorResponseDTO> handleArgument(MethodArgumentNotValidException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestBodyErrorResponseDTO(exception));
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new RequestBodyErrorResponseDTO(exception));
     }
 }
