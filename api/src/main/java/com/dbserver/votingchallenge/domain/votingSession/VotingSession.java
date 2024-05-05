@@ -1,13 +1,10 @@
-package com.dbserver.votingchallenge.domain.voting;
+package com.dbserver.votingchallenge.domain.votingSession;
 
 import com.dbserver.votingchallenge.domain.agenda.Agenda;
 import com.dbserver.votingchallenge.domain.vote.Vote;
 import com.dbserver.votingchallenge.enums.VotingSessionStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -15,6 +12,7 @@ import java.util.List;
 @Entity(name = "voting_sessions")
 @Data
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class VotingSession {

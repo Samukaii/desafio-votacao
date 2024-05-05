@@ -1,16 +1,14 @@
 package com.dbserver.votingchallenge.domain.agenda;
-import com.dbserver.votingchallenge.domain.voting.VotingSession;
+import com.dbserver.votingchallenge.domain.votingSession.VotingSession;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Table(name = "agendas")
 @Entity(name = "agendas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EqualsAndHashCode(of = "id")
 public class Agenda {
     @Id

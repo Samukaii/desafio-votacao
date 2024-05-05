@@ -1,15 +1,17 @@
 package com.dbserver.votingchallenge.domain.vote;
 
 import com.dbserver.votingchallenge.domain.associated.Associated;
-import com.dbserver.votingchallenge.domain.voting.VotingSession;
+import com.dbserver.votingchallenge.domain.votingSession.VotingSession;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Table(name = "votes")
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Vote {

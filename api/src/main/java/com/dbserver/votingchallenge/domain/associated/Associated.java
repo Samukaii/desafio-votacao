@@ -1,16 +1,13 @@
 package com.dbserver.votingchallenge.domain.associated;
 
-import com.dbserver.votingchallenge.domain.voting.VotingSession;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Table(name = "associates")
 @Entity(name = "associates")
 @Data
 @NoArgsConstructor
+@Builder
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Associated {
