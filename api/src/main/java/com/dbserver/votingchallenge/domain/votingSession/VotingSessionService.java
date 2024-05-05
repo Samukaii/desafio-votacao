@@ -1,22 +1,24 @@
-package com.dbserver.votingchallenge.domain.voting;
+package com.dbserver.votingchallenge.domain.votingSession;
 
 import com.dbserver.votingchallenge.domain.agenda.Agenda;
 import com.dbserver.votingchallenge.domain.agenda.AgendaService;
 import com.dbserver.votingchallenge.domain.vote.Vote;
 import com.dbserver.votingchallenge.domain.vote.VoteService;
 import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionCreateDTO;
-import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionResponseDTO;
 import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionVoteDTO;
 import com.dbserver.votingchallenge.enums.VotingSessionStatus;
+import com.dbserver.votingchallenge.exceptions.votingSessions.AgendaAlreadyOpenVotingSessionException;
 import com.dbserver.votingchallenge.exceptions.votingSessions.VotingSessionNotFoundException;
-import com.dbserver.votingchallenge.mappers.votingSession.VotingSessionMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.TaskScheduler;
+import lombok.Setter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
+import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -26,7 +28,9 @@ public class VotingSessionService {
     private final AgendaService agendaService;
     private final VotingSessionRepository votingSessionRepository;
     private final VoteService voteService;
-    private final TaskScheduler scheduler;
+
+    @Setter
+    private ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
     public VotingSession create(VotingSessionCreateDTO data) {
         Agenda agenda = agendaService.getOne(data.agendaId());
@@ -59,9 +63,10 @@ public class VotingSessionService {
     }
 
     private void scheduleClosing(VotingSession votingSession, Integer minutes) {
-        scheduler.schedule(
-                () -> closeVotingSession(votingSession),
-                Instant.now().plusMillis(TimeUnit.MINUTES.toMillis(minutes))
+        scheduledExecutorService.schedule(() ->
+                closeVotingSession(votingSession),
+                Duration.ofMinutes(minutes).toMinutes(),
+                TimeUnit.MINUTES
         );
     }
 
