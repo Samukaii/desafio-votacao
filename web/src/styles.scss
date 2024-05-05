@@ -1,0 +1,14 @@
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+body {
+	background-color: #e7e7e7;
+	height: 100vh;
+	margin: 0;
+}
+
+.without-title-padding {
+	.p-dialog-header {
+		padding-bottom: 0;
+	}
+}
