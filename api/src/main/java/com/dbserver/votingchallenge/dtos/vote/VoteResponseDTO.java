@@ -2,7 +2,9 @@ package com.dbserver.votingchallenge.dtos.vote;
 
 import com.dbserver.votingchallenge.domain.associated.Associated;
 import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionResponseDTO;
+import lombok.Builder;
 
+@Builder
 public record VoteResponseDTO(
         Integer id,
         Boolean favorable,
