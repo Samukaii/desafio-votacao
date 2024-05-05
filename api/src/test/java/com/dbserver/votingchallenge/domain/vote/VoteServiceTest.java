@@ -94,7 +94,7 @@ public class VoteServiceTest {
                 voteService.create(votingSession, dto)
         );
 
-        assertEquals(exception.getMessage(), "User already voted");
+        assertEquals(exception.getMessage(), "Este usuário já votou nesta pauta");
 
         verify(associatedService).getOneByCpf(dto.associatedCpf());
         verifyNoMoreInteractions(associatedService);

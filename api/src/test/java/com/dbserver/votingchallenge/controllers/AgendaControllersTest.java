@@ -48,7 +48,7 @@ public class AgendaControllersTest {
     void shallCreateAnAgenda() throws Exception {
         AgendaCreateDTO dto = AgendaCreateDTO.builder()
                 .name("Some agenda name")
-                .name("Some agenda description")
+                .description("Some agenda description")
                 .build();
 
         Agenda expectedAgenda = Agenda.builder()

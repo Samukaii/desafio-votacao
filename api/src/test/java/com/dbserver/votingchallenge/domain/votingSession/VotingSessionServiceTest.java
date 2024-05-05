@@ -197,7 +197,7 @@ public class VotingSessionServiceTest {
                 votingSessionService.getOne(votingSessionId)
         );
 
-        assertEquals("Voting session not found", e.getMessage());
+        assertEquals("Sessão de votação não encontrada", e.getMessage());
 
         verify(votingSessionRepository).findById(votingSessionId);
         verifyNoMoreInteractions(votingSessionRepository);

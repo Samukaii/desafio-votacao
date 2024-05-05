@@ -94,7 +94,7 @@ public class AgendaServiceTest {
                 agendaService.getOne(agendaId)
         );
 
-        assertEquals("Agenda not found", e.getMessage());
+        assertEquals("Pauta não encontrada", e.getMessage());
 
         verify(agendaRepository).findById(agendaId);
         verifyNoMoreInteractions(agendaRepository);

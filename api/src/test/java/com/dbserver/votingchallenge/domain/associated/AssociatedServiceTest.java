@@ -64,7 +64,7 @@ public class AssociatedServiceTest {
                 associatedService.create(dto)
         );
 
-        assertEquals("Associated cpf already used", e.getMessage());
+        assertEquals("Este cpf já foi utilizado", e.getMessage());
 
         verify(associatedRepository).findByCpf(dto.cpf());
         verifyNoMoreInteractions(associatedRepository);
@@ -114,7 +114,7 @@ public class AssociatedServiceTest {
                 associatedService.getOne(associatedId)
         );
 
-        assertEquals("Associated not found", e.getMessage());
+        assertEquals("Associado não encontrado", e.getMessage());
 
         verify(associatedRepository).findById(associatedId);
         verifyNoMoreInteractions(associatedRepository);
@@ -148,7 +148,7 @@ public class AssociatedServiceTest {
                 associatedService.getOneByCpf(cpf)
         );
 
-        assertEquals("Associated not found", e.getMessage());
+        assertEquals("Associado não encontrado", e.getMessage());
 
         verify(associatedRepository).findByCpf(cpf);
         verifyNoMoreInteractions(associatedRepository);
