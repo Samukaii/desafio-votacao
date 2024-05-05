@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -44,7 +43,7 @@ public class VotingSessionService {
 
         VotingSession votingSession = mapper.toEntity(agenda);
 
-        scheduleClosing(votingSession, Objects.requireNonNullElse(timeInMinutes, 1));
+        scheduleClosing(votingSession, timeInMinutes);
 
         votingSessionRepository.save(votingSession);
 

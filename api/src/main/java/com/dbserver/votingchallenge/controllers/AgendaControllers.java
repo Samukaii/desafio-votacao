@@ -43,7 +43,7 @@ public class AgendaControllers {
     ) {
         Agenda agenda = agendaService.create(data);
 
-        URI url = uriComponentsBuilder.path("/agendas/{agendaId}")
+        URI url = uriComponentsBuilder.path("/api/v1/agendas/{agendaId}")
                 .buildAndExpand(agenda.getId()).toUri();
 
         return ResponseEntity.created(url).body(mapper.toDto(agenda));

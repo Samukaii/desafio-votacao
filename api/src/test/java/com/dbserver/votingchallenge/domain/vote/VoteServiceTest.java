@@ -3,12 +3,16 @@ package com.dbserver.votingchallenge.domain.vote;
 import com.dbserver.votingchallenge.domain.associated.Associated;
 import com.dbserver.votingchallenge.domain.associated.AssociatedService;
 import com.dbserver.votingchallenge.domain.votingSession.VotingSession;
+import com.dbserver.votingchallenge.dtos.agenda.AgendaVoteDTO;
+import com.dbserver.votingchallenge.dtos.vote.VoteCreateDTO;
 import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionResultDTO;
-import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionVoteDTO;
 import com.dbserver.votingchallenge.exceptions.vote.UserAlreadyVotedException;
+import com.dbserver.votingchallenge.fakers.agenda.AgendaFaker;
 import com.dbserver.votingchallenge.fakers.associated.AssociatedFaker;
 import com.dbserver.votingchallenge.fakers.vote.VoteFaker;
 import com.dbserver.votingchallenge.fakers.votingSession.VotingSessionFaker;
+import com.dbserver.votingchallenge.mappers.vote.VoteMapper;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,6 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@RequiredArgsConstructor
 public class VoteServiceTest {
     @InjectMocks
     VoteService voteService;
@@ -33,15 +38,23 @@ public class VoteServiceTest {
     @Mock
     AssociatedService associatedService;
 
+    @Mock
+    VoteMapper mapper;
+
+    AssociatedFaker associatedFaker = new AssociatedFaker();
+    AgendaFaker agendaFaker = new AgendaFaker();
+    VotingSessionFaker votingSessionFaker = new VotingSessionFaker(agendaFaker);
+    VoteFaker voteFaker = new VoteFaker(votingSessionFaker, associatedFaker);
+
     @Test
     void shallCreateVoteSuccessfully() {
-        VotingSessionVoteDTO dto = new VotingSessionVoteDTO(
+        AgendaVoteDTO dto = new AgendaVoteDTO(
                 true,
                 "8749847234"
         );
 
-        Associated expectedAssociated = AssociatedFaker.createOne();
-        VotingSession votingSession = VotingSessionFaker.createOne();
+        Associated expectedAssociated = associatedFaker.createOne();
+        VotingSession votingSession = votingSessionFaker.createOne();
 
         Vote expectedVote = new Vote();
 
@@ -54,6 +67,8 @@ public class VoteServiceTest {
 
         when(associatedService.getOneByCpf(dto.associatedCpf()))
                 .thenReturn(expectedAssociated);
+
+        when(mapper.toEntity(any(VoteCreateDTO.class))).thenReturn(expectedVote);
 
         Vote result = voteService.create(votingSession, dto);
 
@@ -70,13 +85,13 @@ public class VoteServiceTest {
 
     @Test
     void shallThrowErrorWhenAssociatedAlreadyVoted() {
-        VotingSessionVoteDTO dto = new VotingSessionVoteDTO(
+        AgendaVoteDTO dto = new AgendaVoteDTO(
                 true,
                 "8749847234"
         );
 
-        VotingSession votingSession = VotingSessionFaker.createOne();
-        Associated expectedAssociated = AssociatedFaker.createOne();
+        VotingSession votingSession = votingSessionFaker.createOne();
+        Associated expectedAssociated = associatedFaker.createOne();
 
         Vote expectedVote = new Vote();
 
@@ -88,7 +103,7 @@ public class VoteServiceTest {
         when(associatedService.getOneByCpf(dto.associatedCpf())).thenReturn(expectedAssociated);
 
         when(voteRepository.findByAssociatedAndVotingSession(expectedAssociated, votingSession))
-                .thenReturn(Optional.of(VoteFaker.createOne()));
+                .thenReturn(Optional.of(voteFaker.createOne()));
 
         UserAlreadyVotedException exception = assertThrows(UserAlreadyVotedException.class, () ->
                 voteService.create(votingSession, dto)
@@ -105,20 +120,20 @@ public class VoteServiceTest {
 
     @Test
     void shallGetResultByVotingSession() {
-        VotingSession votingSession = VotingSessionFaker.createOne();
+        VotingSession votingSession = votingSessionFaker.createOne();
         Integer votesInFavor = 5;
         Integer votesNotInFavor = 3;
         Integer totalVotes = 8;
 
 
         when(voteRepository.findAllByFavorableTrueAndVotingSession(votingSession))
-                .thenReturn(VoteFaker.createList(votesInFavor));
+                .thenReturn(voteFaker.createList(votesInFavor));
 
         when(voteRepository.findAllByFavorableFalseAndVotingSession(votingSession))
-                .thenReturn(VoteFaker.createList(votesNotInFavor));
+                .thenReturn(voteFaker.createList(votesNotInFavor));
 
         when(voteRepository.findAllByVotingSession(votingSession))
-                .thenReturn(VoteFaker.createList(totalVotes));
+                .thenReturn(voteFaker.createList(totalVotes));
 
         VotingSessionResultDTO result = voteService.getResult(votingSession);
 

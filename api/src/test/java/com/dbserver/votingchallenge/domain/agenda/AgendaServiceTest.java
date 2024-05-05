@@ -6,6 +6,7 @@ import com.dbserver.votingchallenge.dtos.agenda.AgendaCreateDTO;
 import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionResultDTO;
 import com.dbserver.votingchallenge.exceptions.agenda.AgendaNotFoundException;
 import com.dbserver.votingchallenge.fakers.agenda.AgendaFaker;
+import com.dbserver.votingchallenge.mappers.agenda.AgendaMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,6 +32,11 @@ public class AgendaServiceTest {
     @Mock
     VoteService voteService;
 
+    @Mock
+    AgendaMapper mapper;
+
+    private final AgendaFaker agendaFaker = new AgendaFaker();
+
     @Test
     void shallCreateAgenda() {
         AgendaCreateDTO dto = new AgendaCreateDTO(
@@ -43,6 +49,7 @@ public class AgendaServiceTest {
         expectedAgenda.setDescription(dto.description());
 
         when(agendaRepository.save(any(Agenda.class))).thenReturn(expectedAgenda);
+        when(mapper.toEntity(any(AgendaCreateDTO.class))).thenReturn(expectedAgenda);
 
         Agenda result = agendaService.create(dto);
 
@@ -55,7 +62,7 @@ public class AgendaServiceTest {
 
     @Test
     void shallGetAllAgendas() {
-        List<Agenda> expectedAgendas = AgendaFaker.createList(5);
+        List<Agenda> expectedAgendas = agendaFaker.createList(5);
 
         when(agendaRepository.findAll()).thenReturn(expectedAgendas);
 

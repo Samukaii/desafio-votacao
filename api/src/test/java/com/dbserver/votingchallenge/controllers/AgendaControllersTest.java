@@ -3,10 +3,11 @@ package com.dbserver.votingchallenge.controllers;
 import com.dbserver.votingchallenge.domain.agenda.Agenda;
 import com.dbserver.votingchallenge.domain.agenda.AgendaService;
 import com.dbserver.votingchallenge.dtos.agenda.AgendaCreateDTO;
-import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionResultDTO;
+import com.dbserver.votingchallenge.dtos.agenda.AgendaResponseListDTO;
 import com.dbserver.votingchallenge.fakers.agenda.AgendaFaker;
 import com.dbserver.votingchallenge.mappers.agenda.AgendaMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
+@RequiredArgsConstructor
 public class AgendaControllersTest {
     @InjectMocks
     AgendaControllers agendaControllers;
@@ -34,6 +36,13 @@ public class AgendaControllersTest {
     AgendaService agendaService;
 
     private final ObjectMapper mapper = new ObjectMapper();
+
+
+    @Mock
+    AgendaMapper agendaMapper;
+
+    private final AgendaFaker agendaFaker = new AgendaFaker();
+
 
     MockMvc mockMvc;
 
@@ -57,20 +66,25 @@ public class AgendaControllersTest {
                 .description("Some agenda description")
                 .build();
 
+        AgendaResponseListDTO expectedDTO = AgendaResponseListDTO.builder()
+                .id(expectedAgenda.getId())
+                .name(expectedAgenda.getName())
+                .description(expectedAgenda.getDescription())
+                .build();
+
         String requestBody = mapper.writeValueAsString(dto);
-        String responseBody = mapper.writeValueAsString(
-                AgendaMapper.toDto(expectedAgenda)
-        );
+        String responseBody = mapper.writeValueAsString(expectedDTO);
 
         when(agendaService.create(dto)).thenReturn(expectedAgenda);
+        when(agendaMapper.toDto(any(Agenda.class))).thenReturn(expectedDTO);
 
-        mockMvc.perform(post("/agendas")
+        mockMvc.perform(post("/api/v1/agendas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isCreated())
                 .andExpect(content().string(responseBody))
-                .andExpect(header().string("Location", "http://localhost/agendas/15"));
+                .andExpect(header().string("Location", "http://localhost/api/v1/agendas/15"));
 
         verify(agendaService).create(dto);
         verifyNoMoreInteractions(agendaService);
@@ -78,14 +92,14 @@ public class AgendaControllersTest {
 
     @Test
     void shallGetAllAgendas() throws Exception {
-        List<Agenda> expectedAgendas = AgendaFaker.createList(5);
+        List<Agenda> expectedAgendas = agendaFaker.createList(5);
         String responseBody = mapper.writeValueAsString(
-                AgendaMapper.toDtoS(expectedAgendas)
+                agendaMapper.toDtoS(expectedAgendas)
         );
 
         when(agendaService.getAll()).thenReturn(expectedAgendas);
 
-        mockMvc.perform(get("/agendas")
+        mockMvc.perform(get("/api/v1/agendas")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -98,28 +112,28 @@ public class AgendaControllersTest {
     @Test
     void shallGetOneAgenda() throws Exception {
         Integer agendaId = 1;
-        Agenda expectedAgenda = AgendaFaker.createOne();
-        VotingSessionResultDTO resultDTO = VotingSessionResultDTO.builder()
-                .votesInFavor(1)
-                .votesNotInFavor(2)
-                .totalVotes(3)
+        Agenda expectedAgenda = agendaFaker.createOne();
+
+        AgendaResponseListDTO expectedDTO = AgendaResponseListDTO.builder()
+                .id(expectedAgenda.getId())
+                .name(expectedAgenda.getName())
+                .description(expectedAgenda.getDescription())
                 .build();
 
         String responseBody = mapper.writeValueAsString(
-                AgendaMapper.toSingleDto(expectedAgenda, resultDTO)
+                expectedDTO
         );
 
         when(agendaService.getOne(agendaId)).thenReturn(expectedAgenda);
-        when(agendaService.getResult(agendaId)).thenReturn(resultDTO);
+        when(agendaMapper.toDto(any(Agenda.class))).thenReturn(expectedDTO);
 
-        mockMvc.perform(get("/agendas/{id}", agendaId)
+        mockMvc.perform(get("/api/v1/agendas/{id}", agendaId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(responseBody));
 
         verify(agendaService).getOne(agendaId);
-        verify(agendaService).getResult(agendaId);
         verifyNoMoreInteractions(agendaService);
     }
 }

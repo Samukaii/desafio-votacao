@@ -3,6 +3,7 @@ package com.dbserver.votingchallenge.controllers;
 import com.dbserver.votingchallenge.domain.associated.Associated;
 import com.dbserver.votingchallenge.domain.associated.AssociatedService;
 import com.dbserver.votingchallenge.dtos.associated.AssociatedCreateDTO;
+import com.dbserver.votingchallenge.dtos.associated.AssociatedResponseDTO;
 import com.dbserver.votingchallenge.fakers.associated.AssociatedFaker;
 import com.dbserver.votingchallenge.mappers.associated.AssociatedMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +33,11 @@ public class AssociatedControllersTest {
     @Mock
     AssociatedService associatedService;
 
+    @Mock
+    AssociatedMapper associatedMapper;
+
+    private final AssociatedFaker associatedFaker = new AssociatedFaker();
+
     private final ObjectMapper mapper = new ObjectMapper();
 
     MockMvc mockMvc;
@@ -58,12 +64,16 @@ public class AssociatedControllersTest {
 
         String requestBody = mapper.writeValueAsString(dto);
         String responseBody = mapper.writeValueAsString(
-                AssociatedMapper.toDto(expectedAssociated)
+                AssociatedResponseDTO.builder()
+                        .id(21)
+                        .cpf("999.859.100-79")
+                        .name("Associated name")
+                        .build()
         );
 
         when(associatedService.create(dto)).thenReturn(expectedAssociated);
 
-        mockMvc.perform(post("/associates")
+        mockMvc.perform(post("/api/v1/associates")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(requestBody))
@@ -77,14 +87,14 @@ public class AssociatedControllersTest {
 
     @Test
     void shallGetAllAssociates() throws Exception {
-        List<Associated> expectedAssociates = AssociatedFaker.createList(5);
+        List<Associated> expectedAssociates = associatedFaker.createList(5);
         String responseBody = mapper.writeValueAsString(
-                AssociatedMapper.toDtoS(expectedAssociates)
+                associatedMapper.toDtoS(expectedAssociates)
         );
 
         when(associatedService.getAll()).thenReturn(expectedAssociates);
 
-        mockMvc.perform(get("/associates")
+        mockMvc.perform(get("/api/v1/associates")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -97,15 +107,21 @@ public class AssociatedControllersTest {
     @Test
     void shallGetOneAssociated() throws Exception {
         Integer associatedId = 21;
-        Associated expectedAssociated = AssociatedFaker.createOne();
+        Associated expectedAssociated = associatedFaker.createOne();
 
-        String responseBody = mapper.writeValueAsString(
-                AssociatedMapper.toDto(expectedAssociated)
-        );
+        AssociatedResponseDTO expectedDTO = AssociatedResponseDTO.builder()
+                .id(expectedAssociated.getId())
+                .cpf(expectedAssociated.getCpf())
+                .name(expectedAssociated.getName())
+                .build();
 
+        String responseBody = mapper.writeValueAsString(expectedDTO);
+
+        when(associatedMapper.toDto(any(Associated.class)))
+                .thenReturn(expectedDTO);
         when(associatedService.getOne(associatedId)).thenReturn(expectedAssociated);
 
-        mockMvc.perform(get("/associates/{id}", associatedId)
+        mockMvc.perform(get("/api/v1/associates/{id}", associatedId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

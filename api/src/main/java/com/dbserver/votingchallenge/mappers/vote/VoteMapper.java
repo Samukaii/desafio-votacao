@@ -3,11 +3,9 @@ package com.dbserver.votingchallenge.mappers.vote;
 import com.dbserver.votingchallenge.domain.vote.Vote;
 import com.dbserver.votingchallenge.dtos.vote.VoteCreateDTO;
 import com.dbserver.votingchallenge.dtos.vote.VoteResponseDTO;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class VoteMapper {
     public Vote toEntity(VoteCreateDTO dto) {
         return Vote.builder()

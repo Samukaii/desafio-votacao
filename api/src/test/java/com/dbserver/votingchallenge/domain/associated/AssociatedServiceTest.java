@@ -3,6 +3,7 @@ package com.dbserver.votingchallenge.domain.associated;
 import com.dbserver.votingchallenge.dtos.associated.AssociatedCreateDTO;
 import com.dbserver.votingchallenge.exceptions.associated.AssociatedCpfAlreadyUsedException;
 import com.dbserver.votingchallenge.exceptions.associated.AssociatedNotFoundException;
+import com.dbserver.votingchallenge.mappers.associated.AssociatedMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,6 +27,9 @@ public class AssociatedServiceTest {
     @Mock
     AssociatedRepository associatedRepository;
 
+    @Mock
+    AssociatedMapper mapper;
+
     @Test
     void shallCreateAssociatedSuccessfully() {
         AssociatedCreateDTO dto = new AssociatedCreateDTO(
@@ -36,6 +40,9 @@ public class AssociatedServiceTest {
         Associated expectedAssociated = new Associated();
         expectedAssociated.setName(dto.name());
         expectedAssociated.setCpf(dto.cpf());
+
+        when(mapper.toEntity(any(AssociatedCreateDTO.class)))
+                .thenReturn(expectedAssociated);
 
         when(associatedRepository.save(any(Associated.class)))
                 .thenReturn(expectedAssociated);
@@ -114,7 +121,7 @@ public class AssociatedServiceTest {
                 associatedService.getOne(associatedId)
         );
 
-        assertEquals("Associado não encontrado", e.getMessage());
+        assertEquals("Usuário associado não encontrado", e.getMessage());
 
         verify(associatedRepository).findById(associatedId);
         verifyNoMoreInteractions(associatedRepository);
@@ -148,7 +155,7 @@ public class AssociatedServiceTest {
                 associatedService.getOneByCpf(cpf)
         );
 
-        assertEquals("Associado não encontrado", e.getMessage());
+        assertEquals("Usuário associado não encontrado", e.getMessage());
 
         verify(associatedRepository).findByCpf(cpf);
         verifyNoMoreInteractions(associatedRepository);
