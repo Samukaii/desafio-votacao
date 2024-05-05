@@ -25,6 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AssociatedControllers {
     private final AssociatedService associatedService;
+    private final AssociatedMapper mapper;
 
     @Operation(summary = "Cria um associado", method = "POST")
     @ApiResponses(value = {
@@ -52,7 +53,7 @@ public class AssociatedControllers {
     })
     @GetMapping
     public ResponseEntity<List<AssociatedResponseDTO>> getAll() {
-        return ResponseEntity.ok(AssociatedMapper.toDtoS(associatedService.getAll()));
+        return ResponseEntity.ok(mapper.toDtoS(associatedService.getAll()));
     }
 
     @Operation(summary = "Encontra um associado específico", method = "GET")
@@ -63,6 +64,6 @@ public class AssociatedControllers {
     })
     @GetMapping("{id}")
     public ResponseEntity<AssociatedResponseDTO> getOne(@PathVariable Integer id) {
-        return ResponseEntity.ok(AssociatedMapper.toDto(associatedService.getOne(id)));
+        return ResponseEntity.ok(mapper.toDto(associatedService.getOne(id)));
     }
 }

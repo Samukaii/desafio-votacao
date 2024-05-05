@@ -1,30 +1,18 @@
 package com.dbserver.votingchallenge.mappers.votingSession;
 
+import com.dbserver.votingchallenge.domain.agenda.Agenda;
 import com.dbserver.votingchallenge.domain.votingSession.VotingSession;
-import com.dbserver.votingchallenge.dtos.general.StatusDTO;
-import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionResponseDTO;
-import com.dbserver.votingchallenge.mappers.agenda.AgendaMapper;
+import com.dbserver.votingchallenge.enums.VotingSessionStatus;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-
+@Component
+@RequiredArgsConstructor
 public class VotingSessionMapper {
-    public static VotingSessionResponseDTO toDto(VotingSession votingSession) {
-        return VotingSessionResponseDTO.builder()
-                .id(votingSession.getId())
-                .agenda(AgendaMapper.toDto(votingSession.getAgenda()))
-                .status(getStatus(votingSession))
+    public VotingSession toEntity(Agenda agenda) {
+        return VotingSession.builder()
+                .agenda(agenda)
+                .status(VotingSessionStatus.OPENED)
                 .build();
-    }
-
-    public static List<VotingSessionResponseDTO> toDtoS(List<VotingSession> votingSession) {
-        return votingSession.stream().map(VotingSessionMapper::toDto).toList();
-    }
-
-    private static StatusDTO getStatus(VotingSession votingSession) {
-        Integer statusNumber = votingSession.getStatus().ordinal();
-        return switch (votingSession.getStatus()) {
-            case CLOSED -> new StatusDTO(statusNumber, "Fechado");
-            case OPENED -> new StatusDTO(statusNumber, "Aberto");
-        };
     }
 }

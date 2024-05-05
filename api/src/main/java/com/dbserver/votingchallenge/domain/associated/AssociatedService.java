@@ -3,6 +3,7 @@ package com.dbserver.votingchallenge.domain.associated;
 import com.dbserver.votingchallenge.dtos.associated.AssociatedCreateDTO;
 import com.dbserver.votingchallenge.exceptions.associated.AssociatedCpfAlreadyUsedException;
 import com.dbserver.votingchallenge.exceptions.associated.AssociatedNotFoundException;
+import com.dbserver.votingchallenge.mappers.associated.AssociatedMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AssociatedService {
     private final AssociatedRepository associatedRepository;
+    private final AssociatedMapper mapper;
 
     public Associated create(AssociatedCreateDTO data) {
         validateCpfAlreadyInUse(data.cpf());
-        Associated associated = new Associated();
-
-        associated.setName(data.name());
-        associated.setCpf(data.cpf());
+        Associated associated = mapper.toEntity(data);
 
         associatedRepository.save(associated);
 
