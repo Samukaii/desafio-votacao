@@ -16,7 +16,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("associates")
+@RequestMapping("api/v1/associates")
 @RequiredArgsConstructor
 public class AssociatedControllers {
     private final AssociatedService associatedService;

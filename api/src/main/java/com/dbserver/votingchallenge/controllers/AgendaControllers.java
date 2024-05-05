@@ -18,7 +18,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("agendas")
+@RequestMapping("api/v1/agendas")
 @RequiredArgsConstructor
 public class AgendaControllers {
     private final AgendaService agendaService;

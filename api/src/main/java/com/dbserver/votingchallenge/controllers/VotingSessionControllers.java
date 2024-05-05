@@ -20,7 +20,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("voting_sessions")
+@RequestMapping("api/v1/voting_sessions")
 @RequiredArgsConstructor
 public class VotingSessionControllers {
     private final VotingSessionService votingSessionService;
