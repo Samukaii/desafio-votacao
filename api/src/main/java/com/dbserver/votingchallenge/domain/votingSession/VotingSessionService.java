@@ -34,6 +34,7 @@ public class VotingSessionService {
 
     public VotingSession create(VotingSessionCreateDTO data) {
         Agenda agenda = agendaService.getOne(data.agendaId());
+        validateAgendaIsOpened(agenda);
 
         VotingSession votingSession = new VotingSession();
         votingSession.setAgenda(agenda);
@@ -73,5 +74,12 @@ public class VotingSessionService {
     private void closeVotingSession(VotingSession votingSession) {
         votingSession.setStatus(VotingSessionStatus.CLOSED);
         votingSessionRepository.save(votingSession);
+    }
+
+    private void validateAgendaIsOpened(Agenda agenda) {
+        Optional<VotingSession> votingSessionOptional = votingSessionRepository.findByAgenda(agenda);
+
+        if(votingSessionOptional.isPresent())
+            throw new AgendaAlreadyOpenVotingSessionException();
     }
 }
