@@ -6,8 +6,8 @@ import lombok.Builder;
 @Builder
 @Schema(name = "Criação de pauta")
 public record AgendaCreateDTO(
-        @NotBlank
+        @NotBlank(message = "Não pode ficar em branco")
         String name,
-        @NotBlank
+        @NotBlank(message = "Não pode ficar em branco")
         String description
 ) {}
