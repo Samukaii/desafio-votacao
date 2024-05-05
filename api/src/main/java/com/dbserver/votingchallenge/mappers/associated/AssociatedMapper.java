@@ -7,11 +7,11 @@ import java.util.List;
 
 public class AssociatedMapper {
     public static AssociatedResponseDTO toDto(Associated vote) {
-        return new AssociatedResponseDTO(
-                vote.getId(),
-                vote.getName(),
-                vote.getCpf()
-        );
+        return AssociatedResponseDTO.builder()
+                .id(vote.getId())
+                .name(vote.getName())
+                .cpf(vote.getCpf())
+                .build();
     }
 
     public static List<AssociatedResponseDTO> toDtoS(List<Associated> associates) {

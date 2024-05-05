@@ -9,23 +9,23 @@ import java.util.List;
 
 public class AgendaMapper {
     public static AgendaResponseListDTO toDto(Agenda agenda) {
-        return new AgendaResponseListDTO(
-                agenda.getId(),
-                agenda.getName(),
-                agenda.getDescription()
-        );
+        return AgendaResponseListDTO.builder()
+                .id(agenda.getId())
+                .name(agenda.getName())
+                .description(agenda.getDescription())
+                .build();
     }
 
     public static List<AgendaResponseListDTO> toDtoS(List<Agenda> agendas) {
         return agendas.stream().map(AgendaMapper::toDto).toList();
     }
 
-    public static AgendaResponseSingleDTO toSingleDto(Agenda agenda, VotingSessionResultDTO result) {
-        return new AgendaResponseSingleDTO(
-                agenda.getId(),
-                agenda.getName(),
-                agenda.getDescription(),
-                result
-        );
+    public static AgendaResponseSingleDTO toSingleDto(Agenda agenda, VotingSessionResultDTO results) {
+        return AgendaResponseSingleDTO.builder()
+                .id(agenda.getId())
+                .name(agenda.getName())
+                .description(agenda.getDescription())
+                .results(results)
+                .build();
     }
 }
