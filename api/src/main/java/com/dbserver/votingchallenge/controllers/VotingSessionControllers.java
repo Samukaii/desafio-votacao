@@ -1,15 +1,14 @@
 package com.dbserver.votingchallenge.controllers;
 
-import com.dbserver.votingchallenge.domain.associated.Associated;
 import com.dbserver.votingchallenge.domain.vote.Vote;
-import com.dbserver.votingchallenge.domain.voting.VotingSession;
-import com.dbserver.votingchallenge.mappers.vote.VoteMapper;
-import com.dbserver.votingchallenge.mappers.votingSession.VotingSessionMapper;
-import com.dbserver.votingchallenge.domain.voting.VotingSessionService;
+import com.dbserver.votingchallenge.domain.votingSession.VotingSession;
+import com.dbserver.votingchallenge.domain.votingSession.VotingSessionService;
 import com.dbserver.votingchallenge.dtos.vote.VoteResponseDTO;
 import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionCreateDTO;
 import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionResponseDTO;
 import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionVoteDTO;
+import com.dbserver.votingchallenge.mappers.vote.VoteMapper;
+import com.dbserver.votingchallenge.mappers.votingSession.VotingSessionMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +42,7 @@ public class VotingSessionControllers {
     public ResponseEntity<VoteResponseDTO> vote(@RequestBody @Valid VotingSessionVoteDTO data, @PathVariable Integer id) {
         Vote vote = votingSessionService.vote(id, data);
 
-        return ResponseEntity.ok(VoteMapper.toDTO(vote));
+        return ResponseEntity.ok(VoteMapper.toDto(vote));
     }
 
     @GetMapping

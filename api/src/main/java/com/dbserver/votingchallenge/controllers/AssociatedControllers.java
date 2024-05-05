@@ -22,7 +22,7 @@ public class AssociatedControllers {
     private final AssociatedService associatedService;
 
     @PostMapping
-    public ResponseEntity<Associated> createAgenda(
+    public ResponseEntity<Associated> createAssociated(
             @RequestBody @Valid AssociatedCreateDTO data,
             UriComponentsBuilder uriComponentsBuilder
     ) {

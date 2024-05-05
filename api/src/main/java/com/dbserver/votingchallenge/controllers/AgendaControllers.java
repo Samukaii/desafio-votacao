@@ -24,7 +24,7 @@ public class AgendaControllers {
     private final AgendaService agendaService;
 
     @PostMapping
-    public ResponseEntity<Agenda> createAgenda(
+    public ResponseEntity<AgendaResponseListDTO> createAgenda(
             @RequestBody @Valid AgendaCreateDTO data,
             UriComponentsBuilder uriComponentsBuilder
     ) {
@@ -33,7 +33,7 @@ public class AgendaControllers {
         URI url = uriComponentsBuilder.path("/agendas/{agendaId}")
                 .buildAndExpand(agenda.getId()).toUri();
 
-        return ResponseEntity.created(url).body(agenda);
+        return ResponseEntity.created(url).body(AgendaMapper.toDto(agenda));
     }
 
     @GetMapping
