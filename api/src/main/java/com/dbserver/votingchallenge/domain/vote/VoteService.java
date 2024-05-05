@@ -2,7 +2,7 @@ package com.dbserver.votingchallenge.domain.vote;
 
 import com.dbserver.votingchallenge.domain.associated.Associated;
 import com.dbserver.votingchallenge.domain.associated.AssociatedService;
-import com.dbserver.votingchallenge.domain.voting.VotingSession;
+import com.dbserver.votingchallenge.domain.votingSession.VotingSession;
 import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionResultDTO;
 import com.dbserver.votingchallenge.dtos.votingSession.VotingSessionVoteDTO;
 import com.dbserver.votingchallenge.exceptions.vote.UserAlreadyVotedException;
