@@ -1,0 +1,11 @@
+p-dropdown {
+	::ng-deep {
+		.p-dropdown {
+			width: 100%;
+		}
+	}
+}
+app-control-error {
+	position: relative;
+	bottom: 1.4rem;
+};

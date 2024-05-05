@@ -1,0 +1,16 @@
+<div class="p-float-label gap-3 mb-4">
+	<input
+		pInputText
+		[formControl]="control()"
+		[id]="name()"
+		class="w-full"
+		[type]="type()"
+		[placeholder]="placeholder()"
+		autocomplete="off"
+	/>
+	<label [for]="name()">{{ label() }}</label>
+</div>
+<app-control-error
+	[form]="form()"
+	[name]="name()"
+/>

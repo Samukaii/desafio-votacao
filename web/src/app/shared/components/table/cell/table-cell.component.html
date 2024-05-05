@@ -1,0 +1,27 @@
+<ng-container *ngIf="column() as column">
+	@switch (column.type) {
+		@case ("text") {
+			{{ column.value }}
+		}
+		@case ("badge") {
+			<p-tag
+				[value]="column.value"
+				[severity]="column.options.severity"
+			/>
+		}
+		@case ("actions") {
+			<div class="w-full flex gap-2 justify-content-end">
+				@for (action of column.options.actions; track action) {
+					@if (action.condition) {
+						<app-button
+							(click)="action.click()"
+							[action]="action"
+						/>
+					}
+				}
+			</div>
+		}
+	}
+
+</ng-container>
+

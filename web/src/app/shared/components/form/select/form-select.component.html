@@ -1,0 +1,15 @@
+<p-floatLabel class="w-full">
+	<p-dropdown
+		class="w-full block"
+		[options]="options()"
+		[formControl]="control()"
+		optionLabel="name"
+		optionValue="id"
+		[placeholder]="placeholder()"
+		[inputId]="name()" />
+	<label [for]="name()">{{ label() }}</label>
+</p-floatLabel>
+<app-control-error
+	[form]="form()"
+	[name]="name()"
+/>

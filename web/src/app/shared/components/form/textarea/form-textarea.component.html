@@ -1,0 +1,17 @@
+<div class="p-float-label gap-3 mb-4">
+	<textarea
+		pInputTextarea
+		[rows]="5"
+		[maxlength]="maxLength()"
+		[formControl]="control()"
+		[autoResize]="true"
+		[id]="name()"
+		class="w-full"
+		[placeholder]="placeholder()"
+		autocomplete="off"></textarea>
+	<label [for]="name()">{{ label() }}</label>
+</div>
+<app-control-error
+	[form]="form()"
+	[name]="name()"
+/>
