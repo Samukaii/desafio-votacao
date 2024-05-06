@@ -27,4 +27,8 @@ export class AgendasService {
 	vote(id: number, params: AgendaVotePayload) {
 		return this.http.post<Agenda>(`${environment.api}/agendas/${id}/vote`, params);
 	}
+
+	delete(id: number) {
+		return this.http.delete(`${environment.api}/agendas/${id}`);
+	}
 }

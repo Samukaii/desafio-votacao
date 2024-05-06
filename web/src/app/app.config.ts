@@ -6,7 +6,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { DialogService } from "primeng/dynamicdialog";
-import { MessageService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { errorsInterceptor } from "./core/interceptors/errors.interceptor";
 
 export const appConfig: ApplicationConfig = {
@@ -21,6 +21,7 @@ export const appConfig: ApplicationConfig = {
 		),
 		provideAnimations(),
 		DialogService,
-		MessageService
+		MessageService,
+		ConfirmationService
 	]
 };

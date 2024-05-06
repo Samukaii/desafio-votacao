@@ -110,6 +110,15 @@ export class AgendasListComponent implements OnInit {
 				severity: "primary",
 				size: "small"
 			},
+			{
+				label: "Excluir",
+				theme: "outlined",
+				icon: PrimeIcons.TRASH,
+				click: () => this.actions.delete(agenda),
+				condition: true,
+				severity: "danger",
+				size: "small"
+			},
 		]
 	}
 

@@ -6,6 +6,7 @@ import { ApplicationDialogService } from "../../shared/services/application-dial
 import { AgendasOpenSessionComponent } from "./open-session/agendas-open-session.component";
 import { AgendasVoteComponent } from "./vote/agendas-vote.component";
 import { AgendasCreateComponent } from "./create/agendas-create.component";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @Injectable({
 	providedIn: 'root'
@@ -13,6 +14,8 @@ import { AgendasCreateComponent } from "./create/agendas-create.component";
 export class AgendasActionsService {
 	private service = inject(AgendasService);
 	private repository = inject(AgendasRepositoryService);
+	private confirmService = inject(ConfirmationService);
+	private messagesService = inject(MessageService);
 	private dialogService = inject(ApplicationDialogService);
 
 	create() {
@@ -26,6 +29,11 @@ export class AgendasActionsService {
 					this.service.create(form).subscribe(() => {
 						this.repository.fetchAll();
 						this.dialogService.closeAll();
+
+						this.messagesService.add({
+							summary: "Pauta criada com sucesso",
+							severity: "success"
+						});
 					});
 				}
 			}
@@ -42,6 +50,11 @@ export class AgendasActionsService {
 					this.service.openSession(agenda.id, form).subscribe(() => {
 						this.repository.fetchAll();
 						this.dialogService.closeAll();
+
+						this.messagesService.add({
+							summary: "Votações abertas com sucesso",
+							severity: "success"
+						});
 					});
 				}
 			}
@@ -59,9 +72,37 @@ export class AgendasActionsService {
 					this.service.vote(agenda.id, form).subscribe(() => {
 						this.repository.fetchAll();
 						this.dialogService.closeAll();
+
+						this.messagesService.add({
+							summary: "Votação confirmada com sucesso",
+							severity: "success"
+						});
 					});
 				}
 			}
+		});
+	}
+
+	delete(agenda: Agenda) {
+		this.confirmService.confirm({
+			message: 'Você tem certeza de que deseja excluir esta pauta?',
+			header: 'Excluir pauta',
+			icon: 'pi pi-exclamation-triangle',
+			acceptIcon:"none",
+			rejectIcon:"none",
+			rejectButtonStyleClass:"p-button-text",
+			accept: () => {
+				this.service.delete(agenda.id).subscribe(
+					() => {
+						this.repository.fetchAll();
+
+						this.messagesService.add({
+							summary: "Pauta excluída com sucesso",
+							severity: "success"
+						});
+					}
+				);
+			},
 		});
 	}
 }
