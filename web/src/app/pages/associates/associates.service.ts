@@ -17,4 +17,8 @@ export class AssociatesService {
 	create(params: AssociatedPayload) {
 		return this.http.post<Associated>(`${environment.api}/associates`, params);
 	}
+
+	delete(id: number) {
+		return this.http.delete(`${environment.api}/associates/${id}`);
+	}
 }

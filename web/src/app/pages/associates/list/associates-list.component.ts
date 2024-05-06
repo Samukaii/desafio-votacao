@@ -12,6 +12,7 @@ import { AssociatesActionsService } from "../associates-actions.service";
 import { NoResults } from "../../../shared/components/no-results/models/no-results";
 import { Button } from "../../../shared/components/button/models/button";
 import { TableColumnsFn } from "../../../shared/models/table-columns-fn";
+import { PrimeIcons } from "primeng/api";
 
 @Component({
   selector: 'app-associates-list',
@@ -57,7 +58,30 @@ export class AssociatesListComponent implements OnInit {
 			value: associated.cpf,
 			key: "cpf"
 		},
+		{
+			label: "",
+			value: "Ações",
+			type: "actions",
+			key: "actions",
+			options: {
+				actions: this.getActions(associated)
+			}
+		}
 	]
+
+	private getActions(agenda: Associated): Button[] {
+		return [
+			{
+				label: "Excluir",
+				theme: "outlined",
+				icon: PrimeIcons.TRASH,
+				click: () => this.actions.delete(agenda),
+				condition: true,
+				severity: "danger",
+				size: "small"
+			},
+		]
+	}
 
 	ngOnInit() {
 		this.repository.fetchAll();
