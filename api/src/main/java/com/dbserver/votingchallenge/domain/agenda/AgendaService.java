@@ -48,13 +48,20 @@ public class AgendaService {
         return agendaRepository.findById(id).orElseThrow(AgendaNotFoundException::new);
     }
 
+    public void delete(Integer id) {
+        this.getOne(id);
+
+        agendaRepository.deleteById(id);
+    }
+
     public Agenda openVotingSession(Integer agendaId, AgendaOpenVotingSessionDTO dto) {
         Agenda agenda = getOne(agendaId);
 
         if(agenda.getVotingSession() != null)
             throw new AgendaAlreadyOpenVotingSessionException();
 
-        votingSessionService.create(agenda, dto.timeInMinutes());
+        if(dto.timeInMinutes() == null) votingSessionService.create(agenda);
+        else votingSessionService.create(agenda, dto.timeInMinutes());
 
         return getOne(agendaId);
     }

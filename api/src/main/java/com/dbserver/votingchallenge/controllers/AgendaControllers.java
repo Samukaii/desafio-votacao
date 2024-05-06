@@ -72,6 +72,19 @@ public class AgendaControllers {
         return ResponseEntity.ok(mapper.toDto(agenda));
     }
 
+    @Operation(summary = "Exclui uma pauta específica", method = "DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Ok"),
+            @ApiResponse(responseCode = "404", description = "Pauta não encontrada"),
+            @ApiResponse(responseCode = "500", description = "Erro interno ao realizar a operação")
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteOne(@PathVariable Integer id) {
+        agendaService.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
     @Operation(summary = "Abre uma sessão de votação", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ok"),
