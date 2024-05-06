@@ -35,6 +35,8 @@ public class VotingSessionService {
 
         scheduleClosing(votingSession, 1);
 
+        votingSessionRepository.save(votingSession);
+
         return votingSession;
     }
 
