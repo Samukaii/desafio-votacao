@@ -9,6 +9,7 @@ import { Button, TableColumnsFn, TableComponent } from "../../../shared/componen
 import { Associated } from "../models/associated";
 import { AssociatesCreateComponent } from "../create/associates-create.component";
 import { AssociatesActionsService } from "../associates-actions.service";
+import { NoResults } from "../../../shared/components/no-results/models/no-results";
 
 @Component({
   selector: 'app-associates-list',
@@ -28,6 +29,11 @@ import { AssociatesActionsService } from "../associates-actions.service";
 export class AssociatesListComponent implements OnInit {
 	protected repository = inject(AssociatesRepositoryService);
 	protected actions = inject(AssociatesActionsService);
+
+	noResults: NoResults = {
+		icon: "pi pi-users",
+		message: "Nenhum associado cadastrado"
+	};
 
 	headerActions: Button[] = [
 		{

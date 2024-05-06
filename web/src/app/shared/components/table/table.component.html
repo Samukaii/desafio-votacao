@@ -29,3 +29,7 @@
 		</tr>
 	</ng-template>
 </p-table>
+
+@if (!data().length) {
+	<app-no-results [icon]="noResults().icon" [message]="noResults().message"/>
+}

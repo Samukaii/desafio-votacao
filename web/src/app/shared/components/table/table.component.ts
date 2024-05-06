@@ -47,6 +47,7 @@ export interface Button {
 interface Identifiable {
 	id: number;
 }
+import { NoResults } from "../no-results/models/no-results";
 
 
 @Component({
@@ -68,6 +69,11 @@ export class TableComponent<T extends Identifiable> {
 	columnsFn = input.required<TableColumnsFn<T>>();
 	headerActions = input<Button[]>([]);
 	data = input.required<T[]>();
+
+	noResults = input<NoResults>({
+		icon: "pi pi-align-center",
+		message: "Nenhum resultado encontrado"
+	});
 
 	allColumns = computed(() => {
 		const columnsFn = this.columnsFn();

@@ -12,6 +12,7 @@ import { AgendasActionsService } from "../agendas-actions.service";
 import { AgendaStatusEnum } from "../enums/agenda-status-enum";
 import { ColorSeverity } from "../../../shared/models/color-severity";
 import { PrimeIcons } from "primeng/api";
+import { NoResults } from "../../../shared/components/no-results/models/no-results";
 
 @Component({
 	selector: 'app-agendas-list',
@@ -31,6 +32,11 @@ import { PrimeIcons } from "primeng/api";
 export class AgendasListComponent implements OnInit {
 	protected repository = inject(AgendasRepositoryService);
 	protected actions = inject(AgendasActionsService);
+
+	noResults: NoResults = {
+		icon: "pi pi-book",
+		message: "Nenhuma pauta cadastrada"
+	};
 
 	headerActions: Button[] = [
 		{
