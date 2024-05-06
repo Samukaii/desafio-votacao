@@ -43,4 +43,10 @@ public class AssociatedService {
         if(associated.isPresent())
             throw new AssociatedCpfAlreadyUsedException();
     }
+
+    public void delete(Integer id) {
+        this.getOne(id);
+
+        associatedRepository.deleteById(id);
+    }
 }

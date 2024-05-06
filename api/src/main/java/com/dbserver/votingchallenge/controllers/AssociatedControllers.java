@@ -56,7 +56,7 @@ public class AssociatedControllers {
         return ResponseEntity.ok(mapper.toDtoS(associatedService.getAll()));
     }
 
-    @Operation(summary = "Encontra um associado específico", method = "GET")
+    @Operation(summary = "Encontra um usuário associado específico", method = "GET")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Ok"),
             @ApiResponse(responseCode = "404", description = "Associado não encontrado"),
@@ -65,5 +65,18 @@ public class AssociatedControllers {
     @GetMapping("{id}")
     public ResponseEntity<AssociatedResponseDTO> getOne(@PathVariable Integer id) {
         return ResponseEntity.ok(mapper.toDto(associatedService.getOne(id)));
+    }
+
+    @Operation(summary = "Exclui um usuário associado específico", method = "DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Ok"),
+            @ApiResponse(responseCode = "404", description = "Associado não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno ao realizar a operação")
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteOne(@PathVariable Integer id) {
+        associatedService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
