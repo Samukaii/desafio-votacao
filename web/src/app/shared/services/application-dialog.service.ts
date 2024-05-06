@@ -1,10 +1,6 @@
 import { inject, Injectable, Type } from '@angular/core';
 import { DialogService, DynamicDialogConfig } from "primeng/dynamicdialog";
-
-type Generic = Record<string, any>;
-
-
-export type DialogComponentInfo<T> = T extends {dialogInfo: Generic} ? T["dialogInfo"] : any;
+import { DialogComponentInfo } from "../models/dialog-component.info";
 
 
 @Injectable({

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MenuModule } from "primeng/menu";
-import { MenuItem, PrimeIcons } from "primeng/api";
 import { MenuComponent } from "./core/menu/menu.component";
 import { DialogModule } from "primeng/dialog";
 import { ToastModule } from "primeng/toast";

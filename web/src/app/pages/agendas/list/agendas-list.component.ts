@@ -5,7 +5,7 @@ import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
 import { DialogModule } from "primeng/dialog";
 import { AvatarModule } from "primeng/avatar";
-import { Button, TableColumnsFn, TableComponent } from "../../../shared/components/table/table.component";
+import { TableComponent } from "../../../shared/components/table/table.component";
 import { Agenda } from "../models/agenda";
 import { AgendasCreateComponent } from "../create/agendas-create.component";
 import { AgendasActionsService } from "../agendas-actions.service";
@@ -13,6 +13,8 @@ import { AgendaStatusEnum } from "../enums/agenda-status-enum";
 import { ColorSeverity } from "../../../shared/models/color-severity";
 import { PrimeIcons } from "primeng/api";
 import { NoResults } from "../../../shared/components/no-results/models/no-results";
+import { Button } from "../../../shared/components/button/models/button";
+import { TableColumnsFn } from "../../../shared/models/table-columns-fn";
 
 @Component({
 	selector: 'app-agendas-list',
@@ -86,6 +88,7 @@ export class AgendasListComponent implements OnInit {
 			},
 		},
 	]
+
 
 	private getActions(agenda: Agenda): Button[] {
 		return [

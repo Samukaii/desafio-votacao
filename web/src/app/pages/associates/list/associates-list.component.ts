@@ -5,11 +5,13 @@ import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
 import { DialogModule } from "primeng/dialog";
 import { AvatarModule } from "primeng/avatar";
-import { Button, TableColumnsFn, TableComponent } from "../../../shared/components/table/table.component";
+import { TableComponent } from "../../../shared/components/table/table.component";
 import { Associated } from "../models/associated";
 import { AssociatesCreateComponent } from "../create/associates-create.component";
 import { AssociatesActionsService } from "../associates-actions.service";
 import { NoResults } from "../../../shared/components/no-results/models/no-results";
+import { Button } from "../../../shared/components/button/models/button";
+import { TableColumnsFn } from "../../../shared/models/table-columns-fn";
 
 @Component({
   selector: 'app-associates-list',

@@ -1,9 +1,9 @@
 import { Component, input } from '@angular/core';
-import { TableColumn } from "../table.component";
 import { NgIf } from "@angular/common";
 import { TagModule } from "primeng/tag";
 import { ButtonModule } from "primeng/button";
 import { ButtonComponent } from "../../button/button.component";
+import { TableColumn } from "../models/table-column";
 
 @Component({
   selector: 'app-table-cell',

@@ -4,50 +4,13 @@ import { SharedModule } from "primeng/api";
 import { TableModule } from "primeng/table";
 import { CallPipe } from "../../pipes/call.pipe";
 import { TableCellComponent } from "./cell/table-cell.component";
-import { ColorSeverity } from "../../models/color-severity";
 import { ButtonComponent } from "../button/button.component";
-
-interface TableOptions {
-	default: {
-		type: "text"
-	},
-	badge: {
-		type: "badge",
-		options: {
-			severity: ColorSeverity;
-		}
-	},
-	actions: {
-		type: "actions",
-		options: {
-			actions: Button[];
-		}
-	},
-}
-
-interface CommonColumn {
-	key: string;
-	label: string;
-	value: string;
-}
-
-export type TableColumn = CommonColumn & TableOptions[keyof TableOptions];
-
-export type TableColumnsFn <T> = (column: T) => TableColumn[];
-export interface Button {
-	icon?: string;
-	label?: string;
-	condition?: boolean;
-	size?: 'small' | 'large';
-	severity?: ColorSeverity;
-	theme?: 'raised' | 'outlined' | 'plain';
-	click: () => void;
-}
-
-interface Identifiable {
-	id: number;
-}
+import { NoResultsComponent } from "../no-results/no-results.component";
 import { NoResults } from "../no-results/models/no-results";
+import { Identifiable } from "../../models/identifiable";
+import { Button } from "../button/models/button";
+import { TableColumn } from "./models/table-column";
+import { TableColumnsFn } from "../../models/table-columns-fn";
 
 
 @Component({
@@ -59,7 +22,8 @@ import { NoResults } from "../no-results/models/no-results";
 		TableModule,
 		CallPipe,
 		TableCellComponent,
-		ButtonComponent
+		ButtonComponent,
+		NoResultsComponent
 	],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'

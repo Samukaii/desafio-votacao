@@ -3,17 +3,7 @@ import { FormControl, FormGroup } from "@angular/forms";
 import { FormErrorHandlerService } from "../../../core/services/form-error-handler.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { distinctUntilChanged } from "rxjs";
-
-const getErrorMessage = (control: FormControl) => {
-	const customError = control?.errors?.["customError"];
-
-	if (control?.errors?.["required"])
-		return "Campo é obrigatório";
-	else if (customError)
-		return customError;
-
-	return "";
-}
+import { getErrorMessage } from "../../functions/get-error.message";
 
 @Component({
 	selector: 'app-control-error',

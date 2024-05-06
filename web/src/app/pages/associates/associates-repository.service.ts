@@ -18,10 +18,6 @@ export class AssociatesRepositoryService {
 		this.loading.set(false);
 	}
 
-	create() {
-
-	}
-
 	private getAll() {
 		return firstValueFrom(this.service.getAll());
 	}

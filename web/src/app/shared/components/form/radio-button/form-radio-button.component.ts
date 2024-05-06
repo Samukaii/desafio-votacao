@@ -4,9 +4,9 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angul
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { DropdownModule } from "primeng/dropdown";
-import { BaseSelectOption } from "../select/form-select.component";
 import { RadioButtonModule } from "primeng/radiobutton";
 import { ControlErrorComponent } from "../../control-error/control-error.component";
+import { BaseSelectOption } from "../../../models/base-select-option";
 
 @Component({
 	selector: 'app-form-radio-button',

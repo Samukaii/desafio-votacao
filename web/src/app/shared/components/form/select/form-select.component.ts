@@ -5,11 +5,7 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { DropdownModule } from "primeng/dropdown";
 import { ControlErrorComponent } from "../../control-error/control-error.component";
-
-export interface BaseSelectOption {
-	id: number;
-	name: string;
-}
+import { BaseSelectOption } from "../../../models/base-select-option";
 
 
 @Component({
