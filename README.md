@@ -25,7 +25,7 @@ cd desafio-votacao
 cd api
 ./mvnw clean package -DskipTests
 docker compose up
-# Aguardar a inicialização completa
+# Aguardar a inicialização finalizar
 ```
 ### WEB
 ```sh
