@@ -15,7 +15,27 @@ Segue link com as instruções do desafio:
   - Angular
   - Prime NG
 
- ## Instruções de instalação e inicialização
- ```
-  
+## Instruções de instalação
+```sh
+git clone https://github.com/Samukaii/desafio-votacao.git
+cd desafio-votacao
 ```
+### API
+```sh
+cd api
+./mvnw clean package -DskipTests
+docker compose up
+# Aguardar a inicialização completa
+```
+### WEB
+```sh
+cd ../web
+docker build -t voting-challenge-web .
+docker run -p 8090:80 voting-challenge-web
+```
+
+## Rodando a aplicação
+Acesse a url [http://localhost:8090](http://localhost:8090)
+
+## Documentação da API
+Acesse a url [http://localhost:8080/swagger-ui/index.html#](http://localhost:8080/swagger-ui/index.html#)
