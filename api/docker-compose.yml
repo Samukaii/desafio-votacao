@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      TZ: UTC
+      POSTGRES_DB: voting-challenge
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Senha@123
+    ports:
+      - "5432:5432"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "256MB"
+  voting-challenge-api:
+    image: voting-challenge-api
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/voting-challenge
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=Senha@123
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    command: [ "java", "-jar", "app.jar" ]
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "512MB"
+
+networks:
+  default:
+    driver: bridge
