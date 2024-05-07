@@ -35,6 +35,9 @@ docker run -p 8090:80 voting-challenge-web
 ```
 
 ## Rodando a aplicação
+
+Depois de executar a instalação acima, basta acessar as seguintes urls:
+
 [Url da WEB](http://localhost:8090)
 
 ![image](https://github.com/Samukaii/desafio-votacao/assets/54710691/da98a340-838f-4c43-ae87-ee84aad788dd)
