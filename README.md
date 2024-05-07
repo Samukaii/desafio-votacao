@@ -35,7 +35,11 @@ docker run -p 8090:80 voting-challenge-web
 ```
 
 ## Rodando a aplicação
-Acesse a url [http://localhost:8090](http://localhost:8090)
+[Url da WEB](http://localhost:8090)
 
-## Documentação da API
-Acesse a url [http://localhost:8080/swagger-ui/index.html#](http://localhost:8080/swagger-ui/index.html#)
+![image](https://github.com/Samukaii/desafio-votacao/assets/54710691/da98a340-838f-4c43-ae87-ee84aad788dd)
+
+[Url da documentação da API](http://localhost:8080/swagger-ui/index.html#)
+
+![image](https://github.com/Samukaii/desafio-votacao/assets/54710691/e12aa178-124a-4fc3-9880-76a9740eff7c)
+
