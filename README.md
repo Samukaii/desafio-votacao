@@ -14,7 +14,8 @@ Segue link com as instruções do desafio:
 - WEB
   - Angular
   - Prime NG
- 
 
-
+ ## Instruções de instalação e inicialização
+ ```
   
+```
