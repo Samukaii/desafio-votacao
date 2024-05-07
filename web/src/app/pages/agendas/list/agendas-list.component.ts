@@ -52,12 +52,18 @@ export class AgendasListComponent implements OnInit {
 			label: "Nome",
 			type: "text",
 			value: agenda.name,
+			options: {
+				ellipsis: true
+			},
 			key: "name"
 		},
 		{
 			label: "Descrição",
 			type: "text",
 			value: agenda.description,
+			options: {
+				ellipsis: true
+			},
 			key: "description"
 		},
 		{
@@ -73,9 +79,6 @@ export class AgendasListComponent implements OnInit {
 			label: "A favor / Contra / Total",
 			type: "text",
 			value: this.getResult(agenda),
-			options: {
-				severity: this.getStatusColor(agenda)
-			},
 			key: "totalVotes"
 		},
 		{

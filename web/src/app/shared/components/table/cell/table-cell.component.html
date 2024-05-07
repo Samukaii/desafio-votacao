@@ -1,7 +1,9 @@
 <ng-container *ngIf="column() as column">
 	@switch (column.type) {
 		@case ("text") {
-			{{ column.value }}
+			<span [class.ellipsis]="column.options?.ellipsis">
+				{{ column.value }}
+			</span>
 		}
 		@case ("badge") {
 			<p-tag

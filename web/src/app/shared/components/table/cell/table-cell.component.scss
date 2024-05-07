@@ -4,3 +4,11 @@
 	color: white;
 	border-radius: .5rem;
 }
+
+.ellipsis {
+	display: block;
+	max-width: 350px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

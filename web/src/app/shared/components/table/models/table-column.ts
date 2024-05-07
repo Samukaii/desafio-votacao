@@ -3,7 +3,10 @@ import { Button } from "../../button/models/button";
 
 interface TableOptions {
 	default: {
-		type: "text"
+		type: "text",
+		options?: {
+			ellipsis?: boolean;
+		}
 	},
 	badge: {
 		type: "badge",
