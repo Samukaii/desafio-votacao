@@ -1,6 +1,7 @@
 # Desafio de votação
 Este projeto tem como objetivo a criação de um ambiente virtual para decidir pautas em uma assembleia
-Segue link com as instruções do desafio: 
+
+[Clique aqui para ver as instruções do desafio](https://github.com/Samukaii/desafio-votacao/blob/main/challenge-instructions.md)
 
 ## Requisitos
 - Ter o `docker` instalado
