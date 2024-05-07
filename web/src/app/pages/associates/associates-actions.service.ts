@@ -45,6 +45,8 @@ export class AssociatesActionsService {
 			icon: 'pi pi-exclamation-triangle',
 			acceptIcon:"none",
 			rejectIcon:"none",
+			acceptLabel: "Sim, excluir",
+			rejectLabel: "Voltar",
 			rejectButtonStyleClass:"p-button-text",
 			accept: () => {
 				this.service.delete(associated.id).subscribe(

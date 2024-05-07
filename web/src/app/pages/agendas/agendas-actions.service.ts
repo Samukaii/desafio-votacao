@@ -91,6 +91,8 @@ export class AgendasActionsService {
 			acceptIcon:"none",
 			rejectIcon:"none",
 			rejectButtonStyleClass:"p-button-text",
+			acceptLabel: "Sim, excluir",
+			rejectLabel: "Voltar",
 			accept: () => {
 				this.service.delete(agenda.id).subscribe(
 					() => {
